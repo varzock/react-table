@@ -4,15 +4,15 @@ import React from 'react';
 
 const defaultSelectInputComponent = (props) => {
   return (
-    <input 
-      type={props.selectType || 'checkbox'} 
-      checked={props.checked} 
+    <input
+      type={props.selectType || 'checkbox'}
+      checked={props.checked}
       onClick={(e)=>{
         const { shiftKey } = e;
         e.stopPropagation();
         props.onClick(props.id, shiftKey, props.row);
-      }} 
-      onChange={()=>{}}  
+      }}
+      onChange={()=>{}}
     />
   )
 }
@@ -30,7 +30,7 @@ export default (Component) => {
       if(!row || !row.hasOwnProperty(this.props.keyField)) return null;
       const { toggleSelection, selectType, keyField } = this.props;
       const checked = this.props.isSelected(row[this.props.keyField]);
-      const inputProps = 
+      const inputProps =
       {
         checked,
         onClick: toggleSelection,
@@ -44,18 +44,18 @@ export default (Component) => {
     headSelector(row) {
       const { selectType } = this.props;
       if (selectType === 'radio') return null;
-      
+
       const { toggleAll, selectAll: checked, SelectAllInputComponent, } = this.props;
-      const inputProps = 
+      const inputProps =
       {
         checked,
         onClick: toggleAll,
         selectType,
       }
-      
+
       return React.createElement(SelectAllInputComponent,inputProps);
     }
-    
+
     // this is so we can expose the underlying ReactTable to get at the sortedData for selectAll
     getWrappedInstance() {
       if (!this.wrappedInstance) console.warn('RTSelectTable - No wrapped instance');
@@ -65,17 +65,17 @@ export default (Component) => {
 
     render()
     {
-      const { 
-        columns:originalCols, isSelected, toggleSelection, toggleAll, keyField, selectAll, 
+      const {
+        columns:originalCols, isSelected, toggleSelection, toggleAll, keyField, selectAll,
         selectType, SelectAllInputComponent, SelectInputComponent,
-        ...rest 
+        ...rest
       } = this.props;
       const select = {
         id: '_selector',
         accessor: ()=>'x', // this value is not important
         Header: this.headSelector.bind(this),
         Cell: (ci) => { return this.rowSelector.bind(this)(ci.original); },
-        width: 30,
+        width: 42,
         filterable: false,
         sortable: false,
         resizable: false,
@@ -95,7 +95,7 @@ export default (Component) => {
   }
 
   wrapper.displayName = 'RTSelectTable';
-  wrapper.defaultProps = 
+  wrapper.defaultProps =
   {
     keyField: '_id',
     isSelected: (key)=>{ console.log('No isSelected handler provided:',{key})},
@@ -106,6 +106,6 @@ export default (Component) => {
     SelectInputComponent: defaultSelectInputComponent,
     SelectAllInputComponent: defaultSelectInputComponent,
   }
-  
+
   return wrapper;
 }
