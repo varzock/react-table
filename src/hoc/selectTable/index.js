@@ -5,6 +5,7 @@ import React from 'react';
 const defaultSelectInputComponent = (props) => {
   return (
     <input
+      disabled={props.disabled}
       type={props.selectType || 'checkbox'}
       checked={props.checked}
       onClick={(e)=>{
@@ -28,6 +29,11 @@ export default (Component) => {
 
     rowSelector(row) {
       if(!row || !row.hasOwnProperty(this.props.keyField)) return null;
+      let disabled = false;
+      // If has prop disableSelection and its function then test each row with it. if true disable input
+      if (this.props.hasOwnProperty('disableSelection') && typeof this.props.disableSelection === 'function') {
+        disabled = this.props.disableSelection(row);
+      }
       const { toggleSelection, selectType, keyField } = this.props;
       const checked = this.props.isSelected(row[this.props.keyField]);
       const inputProps =
@@ -37,6 +43,7 @@ export default (Component) => {
         selectType,
         id: row[keyField],
         row,
+        disabled,
       }
       return React.createElement(this.props.SelectInputComponent,inputProps);
     }

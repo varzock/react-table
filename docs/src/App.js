@@ -9,6 +9,7 @@ import '../../react-table.css'
 
 import Readme from './stories/Readme.js'
 import HOCReadme from './stories/HOCReadme.js'
+import HOCTable from './examples/selecttable/index'
 
 // import Test from './stories/test.js'
 
@@ -17,7 +18,7 @@ import HOCReadme from './stories/HOCReadme.js'
 const stories = [
   { name: 'Readme', component: Readme },
   { name: 'HOC Readme', component: HOCReadme },
-  
+
   // { name: 'Tester', component: Test },
   { name: 'Simple Table', component: CodeSandbox('X6npLXPRW') },
   {
@@ -64,6 +65,7 @@ const stories = [
   { name: 'Tree Table (HOC)', component: CodeSandbox('lxmr4wynzq') },
   { name: 'Select Table (HOC)', component: CodeSandbox('7yq5ylw09j') },
   { name: 'Select Tree Table (HOC)', component: CodeSandbox('2p7jp4klwp') },
+  { name: 'Select Tree Table (HOC) 2', component: HOCTable },
 ]
 
 export default class App extends React.Component {

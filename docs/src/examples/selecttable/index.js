@@ -93,16 +93,16 @@ export class ComponentTest extends React.Component {
       do you just select ALL the records that are in your data?
       OR
       do you only select ALL the records that are in the current filtered data?
-      
+
       The latter makes more sense because 'selection' is a visual thing for the user.
       This is especially true if you are going to implement a set of external functions
       that act on the selected information (you would not want to DELETE the wrong thing!).
-      
+
       So, to that end, access to the internals of ReactTable are required to get what is
       currently visible in the table (either on the current page or any other page).
-      
+
       The HOC provides a method call 'getWrappedInstance' to get a ref to the wrapped
-      ReactTable and then get the internal state and the 'sortedData'. 
+      ReactTable and then get the internal state and the 'sortedData'.
       That can then be iterrated to get all the currently visible records and set
       the selection state.
     */
@@ -141,7 +141,7 @@ export class ComponentTest extends React.Component {
   render(){
     const { toggleSelection, toggleAll, isSelected, logSelection, toggleType } = this;
     const { data, columns, selectAll, selectType } = this.state;
-    const extraProps = 
+    const extraProps =
     {
       selectAll,
       isSelected,
@@ -162,6 +162,7 @@ export class ComponentTest extends React.Component {
             columns={columns}
             ref={(r)=>this.selectTable = r}
             className="-striped -highlight"
+            disableSelection={(row) => true}
             {...extraProps}
           />
           :null
